@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class player : MonoBehaviour
 {
+	public static player Instance;
+	public Transform PlayerTransform => transform;
+
 	public GameObject trup;
 	public GameObject gg;
 	public enum ProjectAxis { onlyX = 0, xAndY = 1 };
@@ -26,7 +29,20 @@ public class player : MonoBehaviour
 	private bool jump;
 	public bool rest;
 
-	void Start()
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+			Instance = this;
+        }
+        else
+        {
+			Destroy(this);
+        }
+    }
+
+
+    void Start()
 	{
 		speed = 0;
 		body = GetComponent<Rigidbody2D>();
